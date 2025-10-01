@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>RealResQ — Coming Soon</title>
+
+  <!-- Tailwind CDN (great for a single landing file) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            rr: {
+              green900: '#14532d', /* ~green-900 */
+              green800: '#166534', /* ~green-800 */
+              yellow400: '#facc15' /* ~yellow-400 */
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'Apple Color Emoji', 'Segoe UI Emoji']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Smooth fade for slides -->
+  <style>
+    .slide {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0; transition: opacity 1000ms ease-in-out;
+      will-change: opacity;
+    }
+    .slide.active { opacity: 1; }
+  </style>
+
+  <!-- Preload first hero image for snappy paint (optional: add more) -->
+  <link rel="preload" as="image" href="./images/AdobeStock_68896606.jpeg">
+</head>
+<body class="min-h-screen bg-gray-100 font-sans">
+
+  <!-- Top bar (matches your app) -->
+  <header class="bg-rr-green900 text-white">
+    <div class="container mx-auto px-4 py-3 flex items-center justify-center">
+      <p class="text-xl font-semibold">(303) 278-7325</p>
+    </div>
+  </header>
+
+  <!-- Hero with cross-fade slideshow -->
+  <section class="relative h-[85vh] min-h-[520px]">
+    <!-- Slides container -->
+    <div id="slides" class="absolute inset-0 overflow-hidden">
+      <!-- Images inserted by JS -->
+    </div>
+
+    <!-- Dark gradient overlay for legibility -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/10"></div>
+
+    <!-- Centered content -->
+    <div class="absolute inset-0 flex items-center justify-center">
+      <div class="text-center px-4">
+        <div class="inline-flex items-center mb-5">
+          <img
+            src="./images/family_home_24dp_78A75A_FILL0_wght400_GRAD0_opsz24.svg"
+            alt="" class="h-10 mr-3" onerror="this.style.display='none'">
+          <h1 class="text-white text-4xl md:text-5xl font-extrabold tracking-tight drop-shadow">
+            Real Rescue
+          </h1>
+        </div>
+
+        <p class="max-w-3xl mx-auto text-white/90 text-lg md:text-xl">
+          Home Services For Real Estate Agents &amp; Lenders
+        </p>
+
+        <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <a href="tel:+13032787325"
+             class="bg-white text-rr-green900 font-semibold px-6 py-3 rounded-lg shadow hover:bg-gray-50 transition">
+            Call (303) 278-7325
+          </a>
+          <a href="mailto:info@realresq.com"
+             class="bg-rr-yellow400 text-rr-green900 font-extrabold px-6 py-3 rounded-lg shadow hover:brightness-95 transition">
+            Email Us
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Coming Soon (moved below slideshow) -->
+  <section class="bg-white">
+    <div class="container mx-auto px-4 py-12 text-center">
+      <h2 class="text-4xl md:text-6xl font-extrabold text-rr-green800 drop-shadow-sm">
+        Coming Soon
+      </h2>
+    </div>
+  </section>
+
+  <!-- Simple footer -->
+  <footer class="bg-white">
+    <div class="container mx-auto px-4 py-8 text-center text-gray-600">
+      <p>&copy; <span id="year"></span> Real Rescue. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // === CONFIGURE YOUR SLIDES ===
+    // Copy the 5 JPGs to ./images/ and ensure names match:
+    const images = [
+      "./images/AdobeStock_68896606.jpeg",
+      "./images/AdobeStock_263030260.jpeg",
+      "./images/AdobeStock_308775141_Preview.jpeg",
+      "./images/AdobeStock_414494054.jpeg",
+      "./images/AdobeStock_911898976.jpeg",
+    ];
+
+    // Timings
+    const FADE_MS = 1000;
+    const HOLD_MS = 4000; // time each slide is fully visible (not counting fade)
+    const AUTOPLAY_MS = FADE_MS + HOLD_MS;
+
+    // Build slides
+    const slidesEl = document.getElementById('slides');
+    const slideEls = images.map((src, i) => {
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = '';
+      img.className = 'slide' + (i === 0 ? ' active' : '');
+      img.decoding = 'async';
+      img.loading = i === 0 ? 'eager' : 'lazy';
+      slidesEl.appendChild(img);
+      return img;
+    });
+
+    // Cross-fade
+    let idx = 0;
+    setInterval(() => {
+      const curr = slideEls[idx];
+      idx = (idx + 1) % slideEls.length;
+      const next = slideEls[idx];
+
+      curr.classList.remove('active');
+      next.classList.add('active');
+    }, AUTOPLAY_MS);
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
