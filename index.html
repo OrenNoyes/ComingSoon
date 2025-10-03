@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>RealResQ — Coming Soon</title>
+  <title>RealResQ</title>
 
   <!-- Tailwind CDN (great for a single landing file) -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -43,10 +43,12 @@
 </head>
 <body class="min-h-screen bg-gray-100 font-sans">
 
-  <!-- Top bar (matches your app) -->
+  <!-- Top bar (plain text "Coming Soon" bigger & bolder) -->
   <header class="bg-rr-green900 text-white">
     <div class="container mx-auto px-4 py-3 flex items-center justify-center">
-      <p class="text-xl font-semibold">(303) 278-7325</p>
+      <span class="text-base md:text-lg font-semibold tracking-wide uppercase">
+        Coming Soon
+      </span>
     </div>
   </header>
 
@@ -90,15 +92,6 @@
     </div>
   </section>
 
-  <!-- Coming Soon (moved below slideshow) -->
-  <section class="bg-white">
-    <div class="container mx-auto px-4 py-12 text-center">
-      <h2 class="text-4xl md:text-6xl font-extrabold text-rr-green800 drop-shadow-sm">
-        Coming Soon
-      </h2>
-    </div>
-  </section>
-
   <!-- Simple footer -->
   <footer class="bg-white">
     <div class="container mx-auto px-4 py-8 text-center text-gray-600">
@@ -107,8 +100,6 @@
   </footer>
 
   <script>
-    // === CONFIGURE YOUR SLIDES ===
-    // Copy the 5 JPGs to ./images/ and ensure names match:
     const images = [
       "./images/AdobeStock_68896606.jpeg",
       "./images/AdobeStock_263030260.jpeg",
